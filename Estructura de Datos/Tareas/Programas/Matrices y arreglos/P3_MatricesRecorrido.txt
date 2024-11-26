@@ -1,0 +1,110 @@
+//Realice un programa que haga el recorrido de matrices como se indica en el archivo
+
+#include<stdio.h>
+#include<conio.h>
+#define n 3
+#define m 4
+main(){
+int num,i,tam,j;
+printf("\nIngresa los numeros de la matriz: ");
+for(i=0; i<n; i++)
+{
+for(j=0; j<m; j++ )
+{
+scanf("%d",&num);
+if(i==j)
+{
+printf("\n%d",num);
+}
+}
+}
+getch();
+}
+
+//matriz d-i arriba-abajo
+#include<stdio.h>
+#include<conio.h>
+#define n 3
+#define m 4
+main(){
+int i,j, num[n][m],ene,mas=0;
+printf("La matriz recorrido al reves");
+for(i=0; i<n; i++)
+{
+for(j=0; j<m; j++)
+{
+scanf("%d",&num[i][j]);
+}
+}
+for(i=n-1; i>=0; i--)
+{
+for(j=m-1; j>=0; j--)
+{
+printf(" %d\t",num[i][j]);
+}
+printf("\n");
+}
+getch();
+}
+
+#include<stdio.h>
+#include<conio.h>
+#define n 6
+#define m 6
+main(){
+  int i,j,in,prin=0,vero=0;
+  printf("matriz en forma z: ");
+  for(i=0; i<n; i++)
+  {
+  for(j=0; j<m; j++)
+  {
+  scanf("%d",&in);
+  if(i==0)
+  {
+  printf(" %d\t",in);
+  }
+  if(i+j==m-1 && i!=0 && i!=n-1)
+  {
+  printf(" \n%d\t\n",in);
+  }
+  if(i==n-1)
+  {
+  printf("%d\t",in);
+  }
+  }
+  }
+  getch();
+}
+
+//z inversa
+#include<stdio.h>
+#include<conio.h>
+#define n 6
+#define m 6
+int main()
+{
+int i, j, in[n][m];
+printf("Ingrese los valores para la matriz de %dx%d:\n", n, m);
+for (i = 0; i < n; i++)
+{
+for (j = 0; j < m; j++)
+{
+scanf("%d", &in[i][j]);
+}
+}
+printf("\nMatriz en forma de Z invertida:\n");
+for (j = m - 1; j >= 0; j--)
+{
+printf("%d\t", in[n-1][j]);
+}
+for (i=n-2; i>0; i--)
+{
+printf("\n%d\t\n", in[i][m - i - 1]);
+}
+for (j =m-1; j >= 0; j--)
+{
+printf("%d\t", in[0][j]);
+}
+getch();
+return 0;
+}
