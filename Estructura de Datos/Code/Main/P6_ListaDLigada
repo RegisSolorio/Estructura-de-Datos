@@ -1,0 +1,104 @@
+//Generar el archivo main de una lista doblemente ligada
+
+#include <stdio.h>
+#include <stdlib.h>
+
+// Definición del nodo de la lista doblemente ligada
+typedef struct Nodo {
+    int valor;
+    struct Nodo* next; // Apunta al siguiente nodo
+    struct Nodo* prev; // Apunta al nodo anterior
+} Nodo;
+
+// Función para crear un nuevo nodo
+Nodo* crearNodo(int valor) {
+    Nodo* nuevoNodo = (Nodo*)malloc(sizeof(Nodo));
+    nuevoNodo->valor = valor;
+    nuevoNodo->next = NULL;
+    nuevoNodo->prev = NULL;
+    return nuevoNodo;
+}
+
+// Agregar un nodo al final de la lista
+void agregarAlFinal(Nodo** cabeza, Nodo** cola, int valor) {
+    Nodo* nuevoNodo = crearNodo(valor);
+    if (*cabeza == NULL) { // La lista está vacía
+        *cabeza = *cola = nuevoNodo;
+    } else {
+        nuevoNodo->prev = *cola;
+        (*cola)->next = nuevoNodo;
+        *cola = nuevoNodo;
+    }
+}
+
+// Imprimir la lista desde la cabeza
+void imprimirDesdeCabeza(Nodo* cabeza) {
+    Nodo* actual = cabeza;
+    printf("Lista desde la cabeza:\n");
+    while (actual != NULL) {
+        printf("%d ", actual->valor);
+        actual = actual->next;
+    }
+    printf("\n");
+}
+
+// Imprimir la lista desde la cola
+void imprimirDesdeCola(Nodo* cola) {
+    Nodo* actual = cola;
+    printf("Lista desde la cola:\n");
+    while (actual != NULL) {
+        printf("%d ", actual->valor);
+        actual = actual->prev;
+    }
+    printf("\n");
+}
+
+// Liberar la memoria de la lista
+void liberarLista(Nodo* cabeza) {
+    Nodo* actual = cabeza;
+    while (actual != NULL) {
+        Nodo* temp = actual;
+        actual = actual->next;
+        free(temp);
+    }
+}
+
+int main() {
+    Nodo* cabeza = NULL; // Inicializar la lista vacía
+    Nodo* cola = NULL;
+
+    int opcion, valor;
+
+    do {
+        printf("\nMenu de opciones:\n");
+        printf("1. Agregar un nodo al final\n");
+        printf("2. Imprimir la lista desde la cabeza\n");
+        printf("3. Imprimir la lista desde la cola\n");
+        printf("4. Salir\n");
+        printf("Elige una opción: ");
+        scanf("%d", &opcion);
+
+        switch (opcion) {
+            case 1:
+                printf("Introduce el valor del nodo: ");
+                scanf("%d", &valor);
+                agregarAlFinal(&cabeza, &cola, valor);
+                printf("Nodo con valor %d agregado.\n", valor);
+                break;
+            case 2:
+                imprimirDesdeCabeza(cabeza);
+                break;
+            case 3:
+                imprimirDesdeCola(cola);
+                break;
+            case 4:
+                printf("Saliendo del programa...\n");
+                liberarLista(cabeza);
+                break;
+            default:
+                printf("Opción no válida. Intenta de nuevo.\n");
+        }
+    } while (opcion != 4);
+
+    return 0;
+}
